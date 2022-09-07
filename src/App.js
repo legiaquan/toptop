@@ -17,7 +17,6 @@ function App() {
               Layout = Fragment;
             }
             const Page = route.component;
-            console.log('Page: ', Page);
 
             return <Route key={index} path={ route.path } element={
               <Layout>
