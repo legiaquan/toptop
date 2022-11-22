@@ -1,7 +1,8 @@
 {
-    "arrowParens": "always",
-    "bracketSameLine": false,
-    "bracketSpacing": true,
-    "embeddedLanguageFormatting": "auto",
-    "htmlWhitespaceSensitivity": "css"
+  "arrowParens": "always",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "embeddedLanguageFormatting": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "singleQuote": true
 }

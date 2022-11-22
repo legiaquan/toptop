@@ -14,6 +14,7 @@
     "@tippyjs/react": "^4.2.6",
     "classnames": "^2.3.1",
     "normalize.css": "^8.0.1",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
@@ -21,10 +22,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "beautiful": "lint-staged",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -44,9 +47,17 @@
       "last 1 safari version"
     ]
   },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "eslint",
+      "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+    ]
+  },
   "devDependencies": {
     "babel-plugin-module-resolver": "^4.1.0",
     "customize-cra": "^1.0.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
     "react-app-rewired": "^2.2.1",
     "sass": "^1.54.8"
   }
