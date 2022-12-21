@@ -1,22 +1,23 @@
 .wrapper {
-  --search-border-radius: 92px;
-  --search-height: 46px;
-  --search-top-space: 9px;
-  --search-width-button: 52px;
+    --search-border-radius: 92px;
+    --search-height: 46px;
+    --search-top-space: 9px;
+    --search-width-button: 52px;
 
-  width: 100%;
-  height: var(--default-layout-header-height);
-  box-shadow: 0px 1px 1px rgba(0 0 0 / 12%);
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    height: var(--default-layout-header-height);
+    box-shadow: 0px 1px 1px rgba(0 0 0 / 12%);
+    display: flex;
+    justify-content: center;
 }
 
 .inner {
-  height: 100%;
-  width: var(--default-layout-width);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    height: 100%;
+    width: var(--default-layout-width);
+    padding: 0 var(--default-layout-horizontal-space);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo {
@@ -24,81 +25,89 @@
 
 .search,
 .search-result {
-  width: 361px;
+    width: 361px;
 }
 
 .search {
-  height: var(--search-height);
-  padding-left: 16px;
-  position: relative;
-  display: flex;
-  background: rgba(22, 24, 35, 0.06);
-  border-radius: var(--search-border-radius);
-  border: 1.5px solid transparent;
+    height: var(--search-height);
+    padding-left: 16px;
+    position: relative;
+    display: flex;
+    background: rgba(22, 24, 35, 0.06);
+    border-radius: var(--search-border-radius);
+    border: 1.5px solid transparent;
 
-  input {
-    flex: 1;
-    height: 100%;
-    color: var(--black);
-    font-size: 1.6rem;
-    border: none;
-    background-color: transparent;
-    caret-color: var(--primary);
-  }
+    input {
+        flex: 1;
+        height: 100%;
+        color: var(--black);
+        font-size: 1.6rem;
+        border: none;
+        background-color: transparent;
+        caret-color: var(--primary);
+    }
 
-  input:not(:placeholder-shown) ~ .search-btn {
-    color: rgba(22, 24, 35, 0.75);
-  }
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: rgba(22, 24, 35, 0.75);
+    }
 
-  &:focus-within {
-    border-color: rgba(22, 24, 35, 0.2);
-  }
+    &:focus-within {
+        border-color: rgba(22, 24, 35, 0.2);
+    }
 }
 
 .search-result {
 }
 
 .search-title {
-  padding: 5px 12px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: rgba(22, 24, 35, 0.5);
+    padding: 5px 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: rgba(22, 24, 35, 0.5);
 }
 
 .clear,
 .loading {
-  position: absolute;
-  right: calc(var(--search-width-button) + 16px);
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(22, 24, 35, 0.34);
+    position: absolute;
+    right: calc(var(--search-width-button) + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(22, 24, 35, 0.34);
 }
 
 .search-btn {
-  width: var(--search-width-button);
-  height: 100%;
-  border-top-right-radius: var(--search-border-radius);
-  border-bottom-right-radius: var(--search-border-radius);
-  font-size: 1.8rem;
-  color: rgba(22, 24, 35, 0.34);
-  position: relative;
+    width: var(--search-width-button);
+    height: 100%;
+    border-top-right-radius: var(--search-border-radius);
+    border-bottom-right-radius: var(--search-border-radius);
+    font-size: 1.8rem;
+    color: rgba(22, 24, 35, 0.34);
+    position: relative;
 
-  &:hover {
-    background-color: rgba(22, 24, 35, 0.03);
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: rgba(22, 24, 35, 0.06);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: var(--search-top-space);
+        right: var(--search-width-button);
+        width: 1px;
+        height: calc(var(--search-height) - var(--search-top-space) * 2);
+        background-color: rgba(22, 24, 35, 0.12);
+    }
+}
+
+.more-button {
     cursor: pointer;
-  }
-
-  &:active {
-    background-color: rgba(22, 24, 35, 0.06);
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: var(--search-top-space);
-    right: var(--search-width-button);
-    width: 1px;
-    height: calc(var(--search-height) - var(--search-top-space) * 2);
-    background-color: rgba(22, 24, 35, 0.12);
-  }
+    font-size: 2rem;
+    margin-left: 20px;
+    background-color: transparent;
+    padding: 8px;
 }
