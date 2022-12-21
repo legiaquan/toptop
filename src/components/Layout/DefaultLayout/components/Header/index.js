@@ -8,9 +8,16 @@ import {
     faEarthAsia,
     faKeyboard,
     faCircleQuestion,
+    faCloudUpload,
+    faMessage,
+    faCoins,
+    faGear,
+    faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
-import { useState, useEffect, useRef } from 'react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+import { useState, useEffect, useRef, Fragment } from 'react';
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -48,6 +55,31 @@ const MENU_ITEMS = [
     },
 ];
 
+const userMenu = [
+    {
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: 'View profile',
+        to: '/@hoaa',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: 'Get coins',
+        to: '/coin',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'setting',
+        to: '/setting',
+    },
+    ...MENU_ITEMS,
+    {
+        icon: <FontAwesomeIcon icon={faSignOut} />,
+        title: 'Logout',
+        to: '/logout',
+        separate: true,
+    },
+];
+
 const handleMenuChange = (menuItem) => {
     switch (menuItem.type) {
         case 'language':
@@ -55,12 +87,12 @@ const handleMenuChange = (menuItem) => {
             break;
         default:
     }
-    console.log('menuItem: ', menuItem);
 };
 
 function Header() {
     const [searchResult, setSearchResult] = useState('');
     const inputSearch = useRef(null);
+    const currentUser = true;
 
     useEffect(() => {
         inputSearch.current.addEventListener('input', () => {
@@ -79,7 +111,7 @@ function Header() {
                 <div className={cx('logo')}>
                     <img height="42" width="118" src={images.logo} alt="Logo" />
                 </div>
-                <Tippy
+                <HeadlessTippy
                     interactive
                     visible={searchResult?.length > 0}
                     render={(attrs) => (
@@ -118,15 +150,38 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
-                </Tippy>
+                </HeadlessTippy>
                 <div className={cx('actions')}>
-                    <Button text>Upload</Button>
-                    <Button primary>Login</Button>
+                    {currentUser ? (
+                        <Fragment>
+                            <Tippy content="Upload video" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                </button>
+                            </Tippy>
+                        </Fragment>
+                    ) : (
+                        <Fragment>
+                            <Button text>Upload</Button>
+                            <Button primary>Login</Button>
+                        </Fragment>
+                    )}
 
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx('more-button')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
+                    <Menu
+                        items={currentUser ? userMenu : MENU_ITEMS}
+                        onChange={handleMenuChange}
+                    >
+                        {currentUser ? (
+                            <img
+                                className={cx('user-avatar')}
+                                src="https://via.placeholder.com/50"
+                                alt="Nguyen Van A"
+                            />
+                        ) : (
+                            <button className={cx('more-button')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>
