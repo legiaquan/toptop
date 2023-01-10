@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleXmark,
-    // faSpinner,
     faMagnifyingGlass,
     faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +12,8 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Search.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
+import { useDebounce } from '~/hooks';
+import * as searchService from '~/apiServices/searchService';
 
 const cx = classNames.bind(styles);
 
@@ -23,36 +24,25 @@ function Search() {
     const [loading, setLoading] = useState(true);
     const inputRef = useRef(null);
 
+    const debounced = useDebounce(searchValue, 500);
+
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
 
-        fetch(
-            `https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(
-                searchValue,
-            )}&type=less`,
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.log('err: ', err);
-                setLoading(false);
-            });
-    }, [searchValue]);
+        const fetchApi = async () => {
+            setLoading(true);
 
-    // useEffect(() => {
-    //     const currentInputSearch = inputSearch.current;
-    //     const handleOnInput = () => setSearchResult(currentInputSearch.value);
-    //     currentInputSearch.addEventListener('input', handleOnInput);
+            const result = await searchService.search(debounced);
+            setSearchResult(result);
 
-    //     return () =>
-    //         currentInputSearch.removeEventListener('oninput', handleOnInput);
-    // }, []);
+            setLoading(false);
+        };
+
+        fetchApi();
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -95,7 +85,7 @@ function Search() {
                     </button>
                 )}
 
-                {loading && (
+                {!!searchValue && loading && (
                     <FontAwesomeIcon
                         className={cx('loading')}
                         icon={faSpinner}
