@@ -16,6 +16,10 @@
     overflow-y: auto;
 }
 
+.menu-body {
+    overflow-y: auto;
+}
+
 // Menu items
 .menu-item {
     width: 100%;
@@ -40,6 +44,7 @@
     flex-shrink: 0;
     height: 50px;
     margin-top: -8px;
+    flex-shrink: 0;
 }
 
 .back-btn {
