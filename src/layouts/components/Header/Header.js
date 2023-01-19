@@ -83,7 +83,7 @@ const handleMenuChange = (menuItem) => {
 };
 
 function Header() {
-    const currentUser = true;
+    const currentUser = false;
 
     return (
         <header className={cx('wrapper')}>
